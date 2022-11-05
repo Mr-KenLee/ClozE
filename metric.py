@@ -136,7 +136,7 @@ class ClozEMetric:
 
                 if sample_id not in eval_results_dict:
                     eval_results_dict[sample_id] = {
-                        'document': text_caches[batch_idx]['document'],
+                        'document': text_caches[sample_id]['document'],
                         'summary': {}
                     }
 
