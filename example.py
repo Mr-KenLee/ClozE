@@ -29,5 +29,6 @@ predicts = scorer.score(documents,
                         use_tqdm=True)
 
 scorer.display_results(predicts)
+scores = [r['score'] for r in predicts]
 
 
