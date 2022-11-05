@@ -95,7 +95,6 @@ class ClozEScorer:
                     infos['comparision'].append({
                         'factor': factor['text'],
                         'answer': answer,
-                        'origin': origin,
                         'score': score,
                     })
 

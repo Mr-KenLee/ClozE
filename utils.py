@@ -33,6 +33,7 @@ def get_tokenization_caches(data, tokenizer, max_len=512, use_tqdm=True):
         return outputs['input_ids'], outputs['offset_mapping']
 
     caches = {}
+    text_caches = {}
 
     if use_tqdm:
         bar = tqdm(data, desc=f'Tokenizing {len(data)} samples')
@@ -49,14 +50,20 @@ def get_tokenization_caches(data, tokenizer, max_len=512, use_tqdm=True):
                 'summary': {}
             }
 
+            text_caches[sample_id] = {
+                'document': sample['document'],
+                'summary': {}
+            }
+
         if sentence_id not in caches[sample_id]['summary']:
             input_ids, offset_mapping = tokenize_text(sample['summary'])
             caches[sample_id]['summary'][sentence_id] = {
                 'input_ids': input_ids,
                 'offset_mapping': offset_mapping
             }
+            text_caches[sample_id]['summary'][sentence_id] = sample['summary']
 
-    return caches
+    return caches, text_caches
 
 
 def parse_eval_batch(eval_batch):

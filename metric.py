@@ -99,7 +99,7 @@ class ClozEMetric:
 
         processed_data = self.extractor.extract(documents, summaries, k, granularity, selection, use_tqdm)
 
-        caches = get_tokenization_caches(processed_data, self.tokenizer, max_len=self.max_len, use_tqdm=use_tqdm)
+        caches, text_caches = get_tokenization_caches(processed_data, self.tokenizer, max_len=self.max_len, use_tqdm=use_tqdm)
         eval_loader = get_eval_loader(processed_data, caches, batch_size=eval_batch_size)
 
         if use_tqdm:
@@ -136,13 +136,13 @@ class ClozEMetric:
 
                 if sample_id not in eval_results_dict:
                     eval_results_dict[sample_id] = {
-                        'document': batch_document[batch_idx],
+                        'document': text_caches[batch_idx]['document'],
                         'summary': {}
                     }
 
                 if sentence_id not in eval_results_dict[sample_id]['summary']:
                     eval_results_dict[sample_id]['summary'][sentence_id] = {
-                        'sentence': batch_summary[batch_idx],
+                        'sentence': text_caches[sample_id]['summary'][sentence_id],
                         'factors': [],
                         'labels': [],
                         'predicts': [],

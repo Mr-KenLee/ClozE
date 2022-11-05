@@ -1,22 +1,15 @@
 
-import json
 
 from metric import ClozEMetric
-from scipy.stats import pearsonr
 
 scorer = ClozEMetric(cloze_model_path='ClozE-roberta-base-cnndm',
                      fact_extractor='en_core_web_trf',
                      use_gpu=True)
 
-with open('./test_data_qags_cnndm.json', 'r', encoding='utf8') as file:
-    data = json.load(file)
 
-n = 10
+documents = ['A diet rich in oily fish , whole grains , lean protein , fruit and vegetables should provide enough nutrients .']
+summaries = ['A diet rich in oily fish should provide enough nutrients .']
 
-documents = [d['source'] for d in data]
-summaries = [d['summary'] for d in data]
-
-annotation = [d['score'] for d in data]
 
 predicts = scorer.score(documents,
                         summaries,
@@ -36,6 +29,5 @@ predicts = scorer.score(documents,
                         use_tqdm=True)
 
 scorer.display_results(predicts)
-scores = [r['score'] for r in predicts]
 
-print(pearsonr(annotation, scores))
+
