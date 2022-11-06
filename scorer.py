@@ -14,9 +14,9 @@ class ClozEScorer:
 
         # Uniform letter case
         n_label_str = tokenizer.decode(label).strip()
-        n_label = tokenizer.encode(n_label_str.lower(), add_special_tokens=False)
+        n_label = tokenizer.encode(' '+n_label_str.lower(), add_special_tokens=False)
         n_predict_str = tokenizer.decode(predict).strip()
-        n_predict = tokenizer.encode(n_predict_str.lower(), add_special_tokens=False)
+        n_predict = tokenizer.encode(' '+n_predict_str.lower(), add_special_tokens=False)
 
         if not n_label_str and not n_predict_str:
             return 1.0, n_predict_str, n_label_str
