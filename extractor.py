@@ -34,7 +34,10 @@ class FactualFactorExtractor:
             bar = list(zip(documents, summaries))
 
         # process each pair of document and summary
-        for i, (document, summary) in enumerate(bar):
+        for i, (r_document, r_summary) in enumerate(bar):
+
+            document = ' '.join(list(filter(lambda x: x, r_document.split(' '))))
+            summary = ' '.join(list(filter(lambda x: x, r_summary.split(' '))))
 
             seg_document = [word.text for word in self.nlp(document)]
 
