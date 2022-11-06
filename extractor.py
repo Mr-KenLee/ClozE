@@ -35,6 +35,8 @@ class FactualFactorExtractor:
 
         # process each pair of document and summary
         for i, (document, summary) in enumerate(bar):
+            
+            seg_document = [word.text for word in self.nlp(document)]
 
             bias = 0  # sentence bias
             summary_sentences = []
@@ -67,7 +69,7 @@ class FactualFactorExtractor:
                 summary_nouns.append(nouns)
 
             processed_data.append({
-                'document': document,
+                'document': ' '.join(seg_document),
                 'summary_sentences': summary_sentences,
                 'summary_entities': summary_entities,
                 'summary_nouns': summary_nouns
