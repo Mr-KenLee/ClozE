@@ -19,8 +19,6 @@ class ClozEMetric:
         :param cloze_model_path: the path of cloze model in ClozE
         :param fact_extractor: the model name that Spacy will load in
         :param use_gpu: whether use GPU to compute
-        :param eval_batch_size: batch size for evaluation
-        :param k: the number that controls the masked factual factors at one step
         """
 
         # hyper-parameters
