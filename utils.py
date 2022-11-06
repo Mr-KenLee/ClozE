@@ -36,7 +36,7 @@ def get_tokenization_caches(data, tokenizer, max_len=512, use_tqdm=True):
     text_caches = {}
 
     if use_tqdm:
-        bar = tqdm(data, desc=f'Tokenizing {len(data)} samples')
+        bar = tqdm(data, desc=f'Tokenizing {len(data)} samples', ncols=150)
     else:
         print(f'Tokenizing {len(data)} samples...')
         bar = data
@@ -176,8 +176,8 @@ def f1_score(src_factor_tokens, pred_factor_tokens):
         if i in pred_factor_tokens:
             precision += 1
 
-    recall /= len(pred_factor_tokens) + 1e-12
-    precision /= len(src_factor_tokens) + 1e-12
+    recall /= len(pred_factor_tokens)
+    precision /= len(src_factor_tokens)
 
     return 2 * recall * precision / (recall + precision + 1e-12)
 

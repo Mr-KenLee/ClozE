@@ -103,7 +103,7 @@ class ClozEMetric:
         eval_loader = get_eval_loader(processed_data, caches, batch_size=eval_batch_size)
 
         if use_tqdm:
-            bar = tqdm(range(len(eval_loader)), desc=f'Evaluating {len(eval_loader.dataset)} samples')
+            bar = tqdm(range(len(eval_loader)), desc=f'Evaluating {len(eval_loader.dataset)} samples', ncols=150)
         else:
             print(f'Evaluating {len(eval_loader.dataset)} samples with {len(eval_loader)} steps...')
             bar = range(len(eval_loader))
@@ -180,9 +180,10 @@ class ClozEMetric:
 
     @staticmethod
     def display_results(results):
-        for result in results:
+        for i, result in enumerate(results):
+            print(f'####################Sample {i}###############################')
             print('ClozE Score:', result['score'])
-            # print('Document:', result['infos']['document'])
+            print('Document:', result['infos']['document'])
             for info in result['infos']['summary']:
                 print('Sentence:', info['sentence'])
                 print('Sentence Score:', info['score'])

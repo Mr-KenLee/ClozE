@@ -28,14 +28,14 @@ class FactualFactorExtractor:
         processed_data = []
 
         if use_tqdm:
-            bar = tqdm(list(zip(documents, summaries)), desc=f'Extracting factual factors')
+            bar = tqdm(list(zip(documents, summaries)), desc=f'Extracting factual factors', ncols=150)
         else:
             print(f'Extracting factual factors from {len(documents)} samples...')
             bar = list(zip(documents, summaries))
 
         # process each pair of document and summary
         for i, (document, summary) in enumerate(bar):
-            
+
             seg_document = [word.text for word in self.nlp(document)]
 
             bias = 0  # sentence bias
@@ -136,7 +136,7 @@ class FactualFactorExtractor:
         processed_data = []
 
         if use_tqdm:
-            bar = tqdm(data, desc=f'Blocking factual factors by k={k}')
+            bar = tqdm(data, desc=f'Blocking factual factors by k={k}', ncols=150)
         else:
             print(f'Blocking factual factors by k={k} from {len(data)} samples...')
             bar = data
@@ -174,30 +174,3 @@ class FactualFactorExtractor:
         processed_data = self.block_factual_factors(processed_data, k, selection, use_tqdm)
 
         return processed_data
-
-
-if __name__ == '__main__':
-
-    # import json
-    # from transformers import RobertaTokenizerFast
-    #
-    # data = []
-    #
-    # with open('samples.txt', 'r', encoding='utf8') as file:
-    #     for line in file:
-    #         d = json.loads(line.strip())
-    #         data.append(d)
-    #
-    # tokenizer = RobertaTokenizerFast.from_pretrained('ClozE-roberta-base-cnndm')
-    #
-    # extractor = FactualFactorExtractor(fact_extractor='en_core_web_sm')
-    # extractor.extract([d['document'] for d in data][-1:], [d['summary'] for d in data][-1:], 1, 'sentence', 'entity_first', True)
-    import en_core_web_trf
-    sentence = 'A diet rich in oily fish , whole grains , lean protein , fruit and vegetables should provide enough nutrients .'
-    nlp = en_core_web_trf.load()
-    doc = nlp(sentence)
-
-    for sent in doc.sents:
-        print(sent)
-        print([ent for ent in sent.ents])
-        print([noun for noun in sent.noun_chunks])
