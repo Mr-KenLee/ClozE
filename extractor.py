@@ -5,7 +5,10 @@ from tqdm import tqdm
 from utils import convert_word_idx_to_char_idx
 
 class FactualFactorExtractor:
-    def __init__(self, fact_extractor='en_core_web_trf'):
+    def __init__(self, fact_extractor='en_core_web_trf', use_gpu=False, device=0):
+
+        if use_gpu:
+            spacy.require_gpu(device)
 
         # load nlp tool
         # it can be loaded by "import en_core_web_trf" or "spacy.load('en_core_web_trf')"
