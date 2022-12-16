@@ -31,7 +31,7 @@ class ClozEMetric:
 
         # load factual factor extractor
         print(f'Load {fact_extractor} factual factor extractor.')
-        self.extractor = FactualFactorExtractor(fact_extractor)
+        self.extractor = FactualFactorExtractor(fact_extractor, use_gpu)
 
         # load scorer
         self.scorer = ClozEScorer()
